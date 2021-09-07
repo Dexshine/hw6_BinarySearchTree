@@ -166,6 +166,7 @@ public class Tree extends BTreePrinter{
     public void printPreOrderDFT(){
         System.out.print("PreOrder DFT node sequence [ ");
         // Call the recursive version
+        printPreOrderDFT(this.root);
         
         System.out.println("]");
     }
@@ -177,6 +178,7 @@ public class Tree extends BTreePrinter{
     public void printInOrderDFT(){
         System.out.print("InOrder DFT node sequence [ ");
         // Call the recursive version
+        printInOrderDFT(this.root);
         System.out.println("]");
     }
     
@@ -187,6 +189,7 @@ public class Tree extends BTreePrinter{
     public void printPostOrderDFT(){
         System.out.print("PostOrder DFT node sequence [ ");
         // Call the recursive version
+        printPostOrderDFT(this.root);
         System.out.println("]");
     }
     

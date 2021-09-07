@@ -13,60 +13,76 @@ public class Tree extends BTreePrinter{
         if(this.root != null) super.printTree(root);
         else System.out.println("Empty tree!!!");
     }
-
+    //visualize tree
     public static void printNode(Node node){
+        //check if empty-tree or not
         if(node == null) System.out.println("Node not found!!!");
-        else System.out.println(node.key);
+        else System.out.println(node.key);//inherit from superclass
     }
-        
+    //find search_key in BinarySearchTree
     public Node find(int search_key){
         return find(this.root, search_key); // Call the recursive version
     }
-    
+    //find search_key in BinarySearchTree (or subtree)
     public static Node find(Node node, int search_key){
         // this function should be recursive
         // You should check null in this function
+        //if empty-tree or can't find search_key in tree
+        if(node == null) return null;
+        //create foundNode (use in return)
         Node foundNode = new Node(0);
-        if(node == null) {
-            //System.out.println("Node not found!!!");
-            return null;
-        }
+        //check if search_key is equal, less than or more than node.key
         if(search_key == node.key) foundNode = node;
+        //search_key is in the left-subtree
         else if(search_key < node.key){
+            //recursive in left-subtree
             return find(node.left, search_key);
+        //search_key is in the right-subtree
         }else if(search_key > node.key){
+            //recursive in right-subtree
             return find(node.right, search_key);
         }
         return foundNode;
     }
     
-    
+    //find minimum key in BinarySearchTree
     public Node findMin(){
         return findMin(this.root); // Call the recursive version
     }
-    
+    //find minimum key in BinarySearchTree (or subtree)
     public static Node findMin(Node node){
         // this function should be recursive
+        //check if empty-tree
         if(node == null) return null;
         
+        //create foundMin (use in return)
         Node foundMin = new Node(0);
+        //found the most left node in BinarySearchTree
         if(node.left == null) foundMin = node;
+        //can't find the most left node yet
         else{
+            //recursive in left-subtree
             return findMin(node.left);
         }
         return foundMin;
     }
-    
+    //find maximum key in BinarySearchTree
     public Node findMax(){
         return findMax(this.root); // Call the recursive version
     }
-    
+    //find maximum key in BinarySearchTree (or subtree)
     public static Node findMax(Node node){
         // this function should be recursive
+        //check if empty-tree
         if(node == null) return null;
+        
+        //create foundMax (use in return)
         Node foundMax = new Node(0);
+        //found the most right node in BinarySearchTree
         if(node.right == null) foundMax = node;
+        //can't find the most right node yet
         else{
+            //recursive in right-subtree
             return findMax(node.right);
         }
         return foundMax;
@@ -78,19 +94,27 @@ public class Tree extends BTreePrinter{
     
     public static Node findClosestLeaf(Node node, int search_key){
         // this function should be recursive
+        //check if empty-tree
         if(node == null) return null;
 
-        Node closestNode = new Node(0);
-        if(search_key == node.key) closestNode = node;
+        //create closestLeaf (use in return)
+        Node closestLeaf = node;
+        if(search_key == node.key) closestLeaf = node;
+        //if closestLeaf is in left-subtree
         else if(search_key < node.key){
-            if(node.left == null) closestNode = node;
+            //if this node is leaf node --> change closestLeaf
+            if(node.left == null) closestLeaf = node;
+            //if this node isn't leaf node --> recursive in left-subtree
             else return findClosestLeaf(node.left, search_key);
+        //if closestLeaf is in right-subtree
         }else if(search_key > node.key){
-            if(node.right == null) closestNode = node;
+            //if this node is leaf node --> change closestLeaf
+            if(node.right == null) closestLeaf = node;
+            //if this node isn't leaf node --> recursive in right-subtree
             else return findClosestLeaf(node.right, search_key);
         }
 
-        return closestNode;
+        return closestLeaf;
 
     }
     
@@ -98,13 +122,38 @@ public class Tree extends BTreePrinter{
         // Please use while loop to implement this function
         // Try not to use recursion
         
-        Node current, closest;
-        closest = current = root;
+        Node currentNode, closestNode;
+        currentNode = this.root;
+        closestNode = null;
         int min_diff = Integer.MAX_VALUE;
         
         // Use while loop to traverse from root to the closest leaf
-        
-        return closest;
+        while(currentNode != null){
+            //use absolute to find difference between search_key and current.key
+            int diffSearchAndCurrent = Math.abs(search_key - currentNode.key);
+            //if we found the exact key 
+            if(search_key == currentNode.key) closestNode = currentNode;
+            //if closest is in left-subtree
+            else if(search_key < currentNode.key){
+                //if the difference is less than the min_diff
+                if(diffSearchAndCurrent < min_diff){
+                     //update min_diff & save current to closestNode
+                    min_diff = diffSearchAndCurrent;
+                    closestNode = currentNode;
+                }
+                currentNode = currentNode.left;
+            //if closest is in right-subtree
+            }else if(search_key > currentNode.key){
+                //if the difference is less than the min_diff
+                if(diffSearchAndCurrent < min_diff){
+                    //update min_diff & save current to closestNode
+                    min_diff = diffSearchAndCurrent;
+                    closestNode = currentNode;
+                }
+                currentNode = currentNode.right;
+            }
+        }
+        return closestNode;
     }
     
     // Implement this function using the findClosestLeaf technique

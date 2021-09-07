@@ -8,16 +8,17 @@ public class Tree extends BTreePrinter{
     }
     
     public Tree(){} // Dummy constructor (No need to edit)
-    
-    public void printTree(){
-        if(this.root != null) super.printTree(root);
-        else System.out.println("Empty tree!!!");
-    }
+
     //visualize tree
-    public static void printNode(Node node){
+    public void printTree(){
         //check if empty-tree or not
+        if(this.root == null) System.out.println("Empty tree!!!");
+        else super.printTree(this.root); //inherit from superclass
+    }
+    
+    public static void printNode(Node node){
         if(node == null) System.out.println("Node not found!!!");
-        else System.out.println(node.key);//inherit from superclass
+        else System.out.println(node.key);
     }
     //find search_key in BinarySearchTree
     public Node find(int search_key){
@@ -161,6 +162,21 @@ public class Tree extends BTreePrinter{
     public void insert(int key) {
         // Implement insert() using the non-recursive version
         // This function should call findClosestLeaf()
+        //if empty-tree
+        if(this.root == null){
+            //insert new node as root
+            this.root = new Node(key);
+        }
+        Node leafNode = findClosestLeaf(this.root, key);
+        //if the key is duplicate --> exit function
+        if(leafNode.key == key) return;
+        //unique key
+        else{
+            //if new key is less than leaf key --> hang new node to the left side
+            if(key < leafNode.key) leafNode.left = new Node(key);
+            //new key is more than leaf key --> hang new node to the right side
+            else leafNode.right = new Node(key);
+        }
     }
     
     public void printPreOrderDFT(){
@@ -237,41 +253,54 @@ public class Tree extends BTreePrinter{
     
     public int height(){ // Tree height
         // Hint: call the static function
-        return -2;
+        if(this.root == null) return -1;
+        else return height(this.root);
     }
     
     public int size(){ // Tree size
         // Hint: call the static function
-        return -2;
+        if(this.root == null) return 0;
+        else return size(this.root);
     }
     
     public int depth(){ // Tree depth
         // Hint: call the static function
-        return -2;
+        // if(this.root == null) return -1;
+        // else return depth(this.root);
+        return -1;
     }
     
     public Node findKthSmallest(int k){
-        return null; // Call the recursive version
+        if(this.root == null) return null;
+        else return findKthSmallest(this.root, k); // Call the recursive version
     }
     
     public static Node findKthSmallest(Node node, int k){
         // this function should be recursive
-        return null;
+        if(node == null) return null;
+        int size_left = size(node.left);
+        if(k == size_left + 1) return node.parent;
+        else if(k < size_left + 1) return findKthSmallest(node.left, k);
+        else return findKthSmallest(node.right, k - size_left - 1);
+        
     }
     
     public static Node findNext(Node node){
         //this function should call other functions
-        return null;
+        if(node.right != null) return leftDescendant(node.right);
+        else return rightAncestor(node);
     }
     
     public static Node leftDescendant(Node node){// Case 1 (findMin)
         // this function should be recursive
-        return null;
+        if(node.left == null) return node;
+        else return leftDescendant(node.left);
     }
     
     public static Node rightAncestor(Node node) {// Case 1 (first right parent)
         // this function should be recursive
-        return null;
+        if(node.key < node.parent.key) return node.parent;
+        else return rightAncestor(node.parent);
     }
     
     public List rangeSearch(int x, int y){
@@ -280,8 +309,7 @@ public class Tree extends BTreePrinter{
         // List is the static Array
         return new List(100);
     }
-    
-         
+            
     // This function is for deleting the root node
     // If the node is not the root, please call the recursive version
     public void delete(int key) {

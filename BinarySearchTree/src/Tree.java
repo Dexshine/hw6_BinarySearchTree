@@ -28,7 +28,7 @@ public class Tree extends BTreePrinter{
         // You should check null in this function
         Node foundNode = new Node(0);
         if(node == null) {
-            System.out.println("Node not found!!!");
+            //System.out.println("Node not found!!!");
             return null;
         }
         if(search_key == node.key) foundNode = node;
@@ -78,7 +78,19 @@ public class Tree extends BTreePrinter{
     
     public static Node findClosestLeaf(Node node, int search_key){
         // this function should be recursive
-        return null;
+        if(node == null) return null;
+
+        Node closestNode = new Node(0);
+        if(search_key == node.key) closestNode = node;
+        else if(search_key < node.key){
+            if(node.left == null) closestNode = node;
+            else return findClosestLeaf(node.left, search_key);
+        }else if(search_key > node.key){
+            if(node.right == null) closestNode = node;
+            else return findClosestLeaf(node.right, search_key);
+        }
+
+        return closestNode;
 
     }
     

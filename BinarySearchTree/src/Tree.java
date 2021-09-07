@@ -173,6 +173,12 @@ public class Tree extends BTreePrinter{
     
     public static void printPreOrderDFT(Node node){
         // this function should be recursive   
+        if(node == null) return;
+        else{
+            System.out.print(node.key + " ");
+            printPreOrderDFT(node.left);
+            printPreOrderDFT(node.right);
+        }
     }
     
     public void printInOrderDFT(){
@@ -184,6 +190,12 @@ public class Tree extends BTreePrinter{
     
     public static void printInOrderDFT(Node node){
         // this function should be recursive  
+        if(node == null) return;
+        else{
+            printInOrderDFT(node.left);
+            System.out.print(node.key + " ");
+            printInOrderDFT(node.right);
+        }
     }
     
     public void printPostOrderDFT(){
@@ -195,6 +207,12 @@ public class Tree extends BTreePrinter{
     
     public static void printPostOrderDFT(Node node){
         // this function should be recursive 
+        if(node == null) return;
+        else{
+            printPostOrderDFT(node.left);
+            printPostOrderDFT(node.right);
+            System.out.print(node.key + " ");
+        }
     }
     
     public static int height(Node node){

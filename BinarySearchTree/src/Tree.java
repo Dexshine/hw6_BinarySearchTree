@@ -1,6 +1,6 @@
 
 // This Tree needs to inherit BTreePrinter
-public class Tree{ // Fix this
+public class Tree extends BTreePrinter{
     Node root;
 
     public Tree(Node root){
@@ -10,51 +10,76 @@ public class Tree{ // Fix this
     public Tree(){} // Dummy constructor (No need to edit)
     
     public void printTree(){
-        //super.printTree(root);
-        //System.out.println("Empty tree!!!");
+        if(this.root != null) super.printTree(root);
+        else System.out.println("Empty tree!!!");
     }
 
     public static void printNode(Node node){
-        //System.out.println("Node not found!!!");
+        if(node == null) System.out.println("Node not found!!!");
+        else System.out.println(node.key);
     }
         
     public Node find(int search_key){
-        return null; // Call the recursive version
+        return find(this.root, search_key); // Call the recursive version
     }
     
     public static Node find(Node node, int search_key){
         // this function should be recursive
         // You should check null in this function
-        
-        return null;
+        Node foundNode = new Node(0);
+        if(node == null) {
+            System.out.println("Node not found!!!");
+            return null;
+        }
+        if(search_key == node.key) foundNode = node;
+        else if(search_key < node.key){
+            return find(node.left, search_key);
+        }else if(search_key > node.key){
+            return find(node.right, search_key);
+        }
+        return foundNode;
     }
     
     
     public Node findMin(){
-        return null; // Call the recursive version
+        return findMin(this.root); // Call the recursive version
     }
     
     public static Node findMin(Node node){
         // this function should be recursive
-        return null;
+        if(node == null) return null;
+        
+        Node foundMin = new Node(0);
+        if(node.left == null) foundMin = node;
+        else{
+            return findMin(node.left);
+        }
+        return foundMin;
     }
     
     public Node findMax(){
-        return null; // Call the recursive version
+        return findMax(this.root); // Call the recursive version
     }
     
     public static Node findMax(Node node){
         // this function should be recursive
-        return null;
+        if(node == null) return null;
+        Node foundMax = new Node(0);
+        if(node.right == null) foundMax = node;
+        else{
+            return findMax(node.right);
+        }
+        return foundMax;
     }
     
     public Node findClosestLeaf(int search_key){
-        return null; // Call the recursive version
+        return findClosestLeaf(this.root, search_key); // Call the recursive version
     }
     
     public static Node findClosestLeaf(Node node, int search_key){
         // this function should be recursive
         return null;
+
     }
     
     public Node findClosest(int search_key){
@@ -80,6 +105,7 @@ public class Tree{ // Fix this
     public void printPreOrderDFT(){
         System.out.print("PreOrder DFT node sequence [ ");
         // Call the recursive version
+        
         System.out.println("]");
     }
     

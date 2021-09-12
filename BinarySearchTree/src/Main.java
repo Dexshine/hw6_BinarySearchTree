@@ -75,11 +75,13 @@ public class Main {
     
     public static Node find(Node node, int search_key){
         // This function is hidden from students
-        return null;
+        Tree temp = new Tree(node);
+        return temp.find(search_key);
     }
     
     public static void insert(Tree t, Node current, int search_key){ 
         // This function is hidden from students
+        t.insert(search_key);
     }
     
     
@@ -89,22 +91,24 @@ public class Main {
         Tree tree = new Tree();
         tree.printTree();
         
-        tree = Main.contructTree1();
+        Tree tree = Main.constructTree2();
         tree.printTree();
-        
+        Node node = tree.findClosest(46);
+        Tree.printNode(node);
+        /*
         Node node = tree.findClosestLeaf(46);
         Tree.printNode(node);
         */
-        /*
-        Tree tree = Main.constructTree1();
-        tree.printTree();
-        Node node = tree.findClosest(-999);
-        Tree.printNode(node);
-        node = tree.findClosest(999);
-        Tree.printNode(node);
-        */
-        /*
         
+        // Tree tree = Main.constructTree1();
+        // tree.printTree();
+        // Node node = tree.findClosest(-999);
+        // Tree.printNode(node);
+        // node = tree.findClosest(999);
+        // Tree.printNode(node);
+        
+        
+        /*
         Tree tree = new Tree();
         int[] keyList = {5, 3, 1, 2, 7, 9, 10, 8};
         for (int i=0; i<keyList.length; i++)
@@ -114,16 +118,16 @@ public class Main {
         tree.printPreOrderDFT();
         tree.printInOrderDFT();
         tree.printPostOrderDFT();
-        
         */
-        /*
-        Tree tree = Main.constructTree3();
-        tree.printTree();
-        Node node = Main.find(tree.root, 7);
-        System.out.println("Node "+node.key+"'s Size = "+Tree.size(node));
-        System.out.println("Node "+node.key+"'s Depth = "+Tree.depth(tree.root, node));
-        System.out.println("Node "+node.key+"'s Height = "+Tree.height(node));
-*/
+        
+        
+        // Tree tree = Main.constructTree3();
+        // tree.printTree();
+        // Node node = Tree.find(tree.root, 7);
+        // System.out.println("Node "+node.key+"'s Size = "+Tree.size(node));
+        // System.out.println("Node "+node.key+"'s Depth = "+Tree.depth(tree.root, node));
+        // System.out.println("Node "+node.key+"'s Height = "+Tree.height(node));
+
         /*
         Tree tree = constructTree3();
         
@@ -166,9 +170,9 @@ public class Main {
 */
         
         /*
-        Tree tree = Main.constructTree6();
+        Tree tree = Main.constructTree5();
         tree.printTree();
-        List list = tree.rangeSearch(4, 33);
+        List list = tree.rangeSearch(-99, 99);
         list.printList();
 */
         /*
@@ -183,7 +187,7 @@ public class Main {
         tree.printTree();
         tree.delete(0);
         System.out.println("-----");
-        */
+*/       
         /*
         Tree tree = Main.constructTree7();
         tree.printTree();
@@ -202,7 +206,8 @@ public class Main {
         tree.printTree();
         tree.delete(10); tree.printTree();
         tree.delete(9); tree.printTree();
-        
+*/
+        /*
         Tree tree = Main.constructTree8();
         tree.printTree();
         tree.delete(1); tree.printTree();
